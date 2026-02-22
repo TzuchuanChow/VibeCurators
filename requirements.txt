@@ -1,4 +1,5 @@
 # VibeLens Project Dependencies
+# python3.11
 
 # Data processing
 pandas==2.1.0
@@ -8,7 +9,7 @@ pyarrow==13.0.0
 # Spark
 pyspark==3.5.0
 
-# Vectorization (updated versions)
+# Vectorization
 sentence-transformers>=2.3.0
 torch>=2.0.0
 
