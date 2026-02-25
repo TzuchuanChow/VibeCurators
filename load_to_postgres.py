@@ -219,7 +219,7 @@ class PostgreSQLLoader:
         print(f"Insert complete in {elapsed_time:.2f}s")
         print(f"Speed: {len(df)/elapsed_time:.0f} rows/second")
     
-    def create_hnsw_index(self, m=16, ef_construction=64):
+    def create_hnsw_index(self, m=32, ef_construction=128):
         """
         Create HNSW index (vector approximate nearest neighbor search)
         
