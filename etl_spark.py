@@ -6,7 +6,7 @@ Process MovieLens + TMDB data and generate Movie Soup
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import (
     col, count, avg, concat_ws, lit, when, array_join,
-    size, explode, trim, lower
+    size, explode, trim, lower, length, expr
 )
 from pyspark.sql.types import (
     StructType, StructField, StringType, IntegerType, 
@@ -120,7 +120,8 @@ class VibeLensETL:
         tmdb_df = self.spark.read.json(
             self.config['tmdb_path'],
             schema=tmdb_schema,
-            multiLine=True  # Support multiline JSON
+            multiLine=True,  # Support multiline JSON
+            recursiveFileLookup=True
         )
         
         print(f"TMDB movies count: {tmdb_df.count():,}")
@@ -197,17 +198,18 @@ class VibeLensETL:
         )
         
         # Extract director
+        from pyspark.sql.functions import expr
+
         tmdb_processed = tmdb_processed.withColumn(
             "director",
             when(
                 size(col("crew")) > 0,
                 array_join(
-                    explode(col("crew")).filter(col("job") == "Director").select("name"),
+                    expr("filter(crew, x -> x.job = 'Director')").getField("name"),
                     ", "
                 )
             ).otherwise(lit(""))
         )
-        
         # Extract year
         tmdb_processed = tmdb_processed.withColumn(
             "year",
@@ -253,7 +255,7 @@ class VibeLensETL:
             "clean_title",
             when(
                 col("title").contains("("),
-                trim(col("title").substr(1, col("title").length() - 7))
+                trim(expr("substring(title, 1, length(title) - 7)"))
             ).otherwise(col("title"))
         )
         
@@ -374,7 +376,7 @@ if __name__ == "__main__":
         'movielens_links_path': './data/raw/movielens/links.csv',
         
         # TMDB data path
-        'tmdb_path': './data/raw/tmdb/*.json',  # Supports wildcards
+        'tmdb_path': './data/raw/tmdb/',  # Supports wildcards
         
         # Output paths
         'output_parquet_path': './data/preprocessed/movie_soup.parquet',
