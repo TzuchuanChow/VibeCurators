@@ -54,40 +54,36 @@ class PostgreSQLLoader:
             print(f"Connection failed: {e}")
             raise
     
-    def create_table(self, embedding_dim=384):
-        """
-        Create movies table
+    def create_table(self, embedding_dim=None):
+        """创建 movies 表"""
+        # 如果传入了参数，使用传入的值；否则使用实例变量
+        if embedding_dim is not None:
+            self.embedding_dim = embedding_dim
         
-        Args:
-            embedding_dim: Embedding vector dimension
-        """
-        print(f"\n=== Creating Table ===")
-        print(f"Embedding dimension: {embedding_dim}")
-        
-        # Drop old table if exists
-        drop_table_sql = "DROP TABLE IF EXISTS movies CASCADE"
+        print("\n=== Creating Table ===")
+        print(f"Embedding dimension: {self.embedding_dim}")
+        # 删除旧表
+        drop_table_sql = "DROP TABLE IF EXISTS movies CASCADE;"
         self.cursor.execute(drop_table_sql)
         
-        # Create new table
+        # 创建表
         create_table_sql = f"""
         CREATE TABLE movies (
-            id SERIAL PRIMARY KEY,
-            movie_id INTEGER NOT NULL,
-            title TEXT NOT NULL,
-            year INTEGER,
-            genres TEXT,
-            tmdb_genres TEXT,
-            num_ratings INTEGER,
-            avg_rating FLOAT,
-            tmdb_rating FLOAT,
-            soup TEXT,
-            embedding vector({embedding_dim}) NOT NULL
-        )
+            "movieId" INTEGER PRIMARY KEY,
+            "title" TEXT NOT NULL,
+            "year" INTEGER,
+            "genres" TEXT,
+            "tmdb_genres" TEXT,
+            "num_ratings" INTEGER,
+            "avg_rating" REAL,
+            "tmdb_rating" REAL,
+            "soup" TEXT,
+            "embedding" VECTOR({self.embedding_dim})
+        );
         """
         
         self.cursor.execute(create_table_sql)
         self.conn.commit()
-        
         print("Table 'movies' created successfully!")
     
     def load_data(self, parquet_path):
@@ -174,117 +170,167 @@ class PostgreSQLLoader:
             print(f"COPY failed: {e}")
             print("Falling back to execute_values method...")
             self.bulk_insert_execute_values(df)
-    
-    def bulk_insert_execute_values(self, df, batch_size=1000):
-        """
-        Bulk insert using execute_values (fallback method)
         
-        Args:
-            df: Pandas DataFrame
-            batch_size: Number of rows per batch
-        """
-        print(f"\n=== Bulk Insert (execute_values method) ===")
-        print(f"Batch size: {batch_size}")
+    def bulk_insert_execute_values(self, df):
+            """使用 execute_values 批量插入（修复版本）"""
+            print("\n=== Bulk Insert (execute_values method) ===")
+            
+            batch_size = 1000
+            print(f"Batch size: {batch_size}")
+            
+            # SQL 插入语句
+            insert_sql = """
+                        INSERT INTO movies (
+                            "movieId", "title", "year", "genres", "tmdb_genres",
+                            "num_ratings", "avg_rating", "tmdb_rating", "soup", "embedding"
+                        ) VALUES %s
+                        ON CONFLICT ("movieId") DO NOTHING
+                    """
+            
+            # 准备数据 - 关键修复
+            data = []
+            for idx, row in df.iterrows():
+                try:
+                    # 1. 转换 embedding: numpy.ndarray → Python list
+                    embedding = row['embedding'].tolist()
+                    
+                    # 2. 清理文本字段（移除 NULL 字符和处理 None）
+                    title = str(row['title']).replace('\x00', '') if pd.notna(row['title']) else ''
+                    soup = str(row['soup']).replace('\x00', '') if pd.notna(row['soup']) else ''
+                    genres = str(row['genres']).replace('\x00', '') if pd.notna(row['genres']) else ''
+                    tmdb_genres = str(row['tmdb_genres']).replace('\x00', '') if pd.notna(row['tmdb_genres']) else ''
+                    
+                    # 3. 准备行数据
+                    data.append((
+                        int(row['movieId']),
+                        title,
+                        int(row['year']) if pd.notna(row['year']) else None,
+                        genres,
+                        tmdb_genres,
+                        int(row['num_ratings']),
+                        float(row['avg_rating']),
+                        float(row['tmdb_rating']) if pd.notna(row['tmdb_rating']) else None,
+                        soup,
+                        embedding  # 现在是 Python list
+                    ))
+                except Exception as e:
+                    print(f"Warning: Skipping row {idx} (movieId={row['movieId']}): {e}")
+                    continue
+            
+            print(f"Prepared {len(data)} rows for insertion")
+            
+            # 批量插入
+            from psycopg2.extras import execute_values
+            import time
+            
+            start = time.time()
+            try:
+                execute_values(self.cursor, insert_sql, data, page_size=batch_size)
+                self.conn.commit()
+                elapsed = time.time() - start
+                
+                print(f"Insert complete in {elapsed:.2f}s")
+                print(f"Speed: {len(data)/elapsed:.0f} rows/second")
+            except Exception as e:
+                print(f"Error during bulk insert: {e}")
+                self.conn.rollback()
+                raise
+                
+    def create_hnsw_index(self):
+            """创建 HNSW 索引"""
+            print("\n=== Creating HNSW Index ===")
+            
+            m = 32
+            ef_construction = 128
+            
+            print(f"Parameters: m={m}, ef_construction={ef_construction}")
+            print("This may take a few minutes...")
+            
+            import time
+            start = time.time()
+            
+            # 创建索引 SQL
+            create_index_sql = f"""
+            CREATE INDEX IF NOT EXISTS movies_embedding_idx 
+            ON movies 
+            USING hnsw ("embedding" vector_cosine_ops)
+            WITH (m = {m}, ef_construction = {ef_construction});
+            """
+            
+            # 执行
+            self.cursor.execute(create_index_sql)  # ← 确保变量名正确
+            self.conn.commit()
+            
+            elapsed = time.time() - start
+            print(f"Index created in {elapsed:.2f}s ({elapsed/60:.2f} minutes)")
+            
+            # 验证索引
+            self.cursor.execute("""
+                SELECT indexname 
+                FROM pg_indexes 
+                WHERE tablename = 'movies'
+            """)
+            indexes = self.cursor.fetchall()
+            print(f"Indexes on 'movies' table: {len(indexes)}")
+            for idx in indexes:
+                print(f"  - {idx[0]}")
+
+    def create_query_cache_table(self):
+        """创建查询缓存表"""
+        print("\n=== Creating Query Cache Table ===")
         
-        start_time = time.time()
+        create_table_sql = """
+        CREATE TABLE IF NOT EXISTS query_cache (
+            query_text TEXT PRIMARY KEY,
+            embedding VECTOR(384) NOT NULL,
+            created_at TIMESTAMP DEFAULT NOW(),
+            hit_count INTEGER DEFAULT 0,
+            last_accessed TIMESTAMP DEFAULT NOW()
+        );
         
-        # Prepare data
-        data = []
-        for _, row in df.iterrows():
-            data.append((
-                int(row['movieId']),
-                str(row['title']),
-                int(row.get('year', 0)) if pd.notna(row.get('year')) else None,
-                str(row.get('genres', '')),
-                str(row.get('tmdb_genres', '')),
-                int(row.get('num_ratings', 0)),
-                float(row.get('avg_rating', 0.0)),
-                float(row.get('tmdb_rating', 0.0)),
-                str(row.get('soup', '')),
-                row['embedding']  # List format
-            ))
-        
-        # Bulk insert
-        insert_sql = """
-        INSERT INTO movies (
-            movie_id, title, year, genres, tmdb_genres,
-            num_ratings, avg_rating, tmdb_rating, soup, embedding
-        ) VALUES %s
-        """
-        
-        execute_values(self.cursor, insert_sql, data, page_size=batch_size)
-        self.conn.commit()
-        
-        elapsed_time = time.time() - start_time
-        print(f"Insert complete in {elapsed_time:.2f}s")
-        print(f"Speed: {len(df)/elapsed_time:.0f} rows/second")
-    
-    def create_hnsw_index(self, m=32, ef_construction=128):
-        """
-        Create HNSW index (vector approximate nearest neighbor search)
-        
-        Args:
-            m: HNSW parameter - max connections per layer (recommended 16)
-            ef_construction: Search range during index build (recommended 64)
-        """
-        print(f"\n=== Creating HNSW Index ===")
-        print(f"Parameters: m={m}, ef_construction={ef_construction}")
-        print("This may take a few minutes...")
-        
-        start_time = time.time()
-        
-        # Create HNSW index
-        index_sql = f"""
-        CREATE INDEX ON movies 
+        CREATE INDEX IF NOT EXISTS query_cache_hnsw_idx 
+        ON query_cache 
         USING hnsw (embedding vector_cosine_ops)
-        WITH (m = {m}, ef_construction = {ef_construction})
+        WITH (m = 16, ef_construction = 64);
+        
+        CREATE INDEX IF NOT EXISTS query_cache_hit_count_idx 
+        ON query_cache (hit_count DESC);
         """
         
-        self.cursor.execute(index_sql)
+        self.cursor.execute(create_table_sql)
         self.conn.commit()
-        
-        elapsed_time = time.time() - start_time
-        print(f"Index created in {elapsed_time:.2f}s ({elapsed_time/60:.2f} minutes)")
-        
-        # Verify index
-        self.cursor.execute("""
-            SELECT indexname, indexdef 
-            FROM pg_indexes 
-            WHERE tablename = 'movies'
-        """)
-        indexes = self.cursor.fetchall()
-        print(f"Indexes on 'movies' table: {len(indexes)}")
-        for idx_name, idx_def in indexes:
-            print(f"  - {idx_name}")
-    
+        print("✅ Query cache table created")
+
     def verify_data(self):
-        """Verify imported data"""
-        print(f"\n=== Verifying Data ===")
-        
-        # Count rows
-        self.cursor.execute("SELECT COUNT(*) FROM movies")
-        count = self.cursor.fetchone()[0]
-        print(f"Total movies in database: {count:,}")
-        
-        # Show samples
-        self.cursor.execute("""
-            SELECT id, title, year, num_ratings 
-            FROM movies 
-            LIMIT 5
-        """)
-        samples = self.cursor.fetchall()
-        print("\nSample records:")
-        for record in samples:
-            print(f"  ID {record[0]}: {record[1]} ({record[2]}) - {record[3]} ratings")
-        
-        # Check embedding dimension
-        self.cursor.execute("""
-            SELECT vector_dims(embedding) 
-            FROM movies 
-            LIMIT 1
-        """)
-        embedding_dim = self.cursor.fetchone()[0]
-        print(f"\nEmbedding dimension: {embedding_dim}")
+            """验证数据加载成功"""
+            print("\n=== Verifying Data ===")
+            
+            # 检查总数
+            self.cursor.execute('SELECT COUNT(*) FROM movies')
+            count = self.cursor.fetchone()[0]
+            print(f"Total movies in database: {count:,}")
+            
+            # 显示样本记录
+            self.cursor.execute("""
+                SELECT "movieId", "title", "year", "num_ratings"
+                FROM movies
+                ORDER BY "num_ratings" DESC
+                LIMIT 5
+            """)
+            
+            print("\nSample records:")
+            for row in self.cursor.fetchall():
+                movie_id, title, year, num_ratings = row
+                print(f"  ID {movie_id}: {title} ({year}) - {num_ratings:,} ratings")
+            
+            # 验证 embedding 维度
+            self.cursor.execute("""
+                SELECT vector_dims("embedding") 
+                FROM movies 
+                LIMIT 1
+            """)
+            dim = self.cursor.fetchone()[0]
+            print(f"\nEmbedding dimension check: {dim}")
     
     def test_search(self, query_text, top_k=5):
         """
@@ -334,6 +380,8 @@ class PostgreSQLLoader:
             
             # 5. Create index
             self.create_hnsw_index()
+
+            self.create_query_cache_table() 
             
             # 6. Verify
             self.verify_data()
