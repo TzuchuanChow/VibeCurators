@@ -1,16 +1,28 @@
-# React + Vite
+# 🎬 VibeLens
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the VibeLens Webpage! This project is a React-based movie search application built with Vite and Tailwind CSS.
 
-Currently, two official plugins are available:
+## 🚀 Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Follow these steps to get the development environment running on your machine.
 
-## React Compiler
+### 1. Prerequisites
+Make sure you have **Node.js** installed (LTS version recommended).
+- [Download Node.js](https://nodejs.org/)
+- Check your version in the terminal: `node -v`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 2. Installation
+Clone the repository (if you haven't already) and install the necessary dependencies make sure you are in the VibeLens Folder:
 
-## Expanding the ESLint configuration
+```bash
+# In Bash
+# Install all packages listed in package.json
+npm install
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+# Running the App
+npm run dev
+```
+
+
+Once started, click the link in your terminal (usually http://localhost:5173) to view the site
+
