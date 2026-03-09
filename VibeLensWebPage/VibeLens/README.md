@@ -22,6 +22,13 @@ npm install
 # Running the App
 npm run dev
 ```
+### Running The backend API
+Follow Trents guide get the envrioment running provided in the Team google doc.
+(researched on youtube & google since we are use python file FastAPI is a modern, high-performance web framework for building APIs with Python, while Uvicorn is the lightning-fast server that runs FastAPI applications)
+
+- Once you got it running and still inside the enviroment run "python -m pip install fastapi uvicorn" 
+- Then start the backend server run:  "python api.py."
+You are successful when you see: Uvicorn running on http://127.0.0.1:8000 (leave it as it dont click) and go back to the web and TEST!
 
 
 Once started, click the link in your terminal (usually http://localhost:5173) to view the site
