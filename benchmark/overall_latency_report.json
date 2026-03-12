@@ -1,0 +1,63 @@
+{
+  "phase1": {
+    "s3_download_sec": 0.6502152499742806,
+    "file_size_mb": 32.45,
+    "spark_load_sec": 1.3788412499707192,
+    "row_count": 11937,
+    "metadata_parse_sec": 0.0027974999975413084,
+    "phase1_total_sec": 2.031853999942541
+  },
+  "phase2": {
+    "model_load_sec": 2.262138209072873,
+    "single_encode_cold_sec": 0.2059709579916671,
+    "single_encode_warm_avg_sec": 0.02039173759985715,
+    "single_encode_warm_min_sec": 0.008563167066313326,
+    "single_encode_warm_max_sec": 0.035812583984807134,
+    "batch_encoding": {
+      "32": {
+        "sec": 0.06179245805833489,
+        "texts_per_sec": 517.9
+      },
+      "64": {
+        "sec": 0.036390624940395355,
+        "texts_per_sec": 1758.7
+      },
+      "128": {
+        "sec": 0.04818129201885313,
+        "texts_per_sec": 2656.6
+      }
+    },
+    "tfidf_fit_transform_sec": null,
+    "phase2_total_sec": 2.46810916706454
+  },
+  "phase3": {
+    "cache_miss": {
+      "avg_total_sec": 0.07866533357882873,
+      "avg_embed_sec": 0.02143695850390941,
+      "avg_search_sec": 0.05722837507491931,
+      "min_total_sec": 0.07198383403010666,
+      "max_total_sec": 0.10449850000441074
+    },
+    "cache_hit": {
+      "avg_total_sec": 0.1302398253348656,
+      "min_total_sec": 0.11966320895589888,
+      "max_total_sec": 0.1523081250488758
+    },
+    "full_scan_sec": 0.02907166606746614,
+    "genre_filtered_sec": 0.028985708951950073,
+    "cache_analytics": {
+      "total_cached": 10,
+      "total_hits": 10,
+      "avg_hits": 1.0
+    },
+    "session_hit_rate_pct": 50.0,
+    "phase3_total_sec": 2.089051589136943
+  },
+  "phase4": {
+    "phase4_skipped": true
+  },
+  "summary": {
+    "user_latency_cold_ms": 78.7,
+    "user_latency_cached_ms": 130.2
+  }
+}

@@ -1,0 +1,896 @@
+{
+  "config": {
+    "k": 5,
+    "edit_threshold": 3,
+    "num_queries": 20
+  },
+  "summary": {
+    "semantic_avg_recall@5": 0.0069,
+    "tfidf_avg_recall@5": 0.0055,
+    "semantic_avg_latency_ms": 126.64,
+    "tfidf_avg_latency_ms": 255.56,
+    "semantic_cache_hit_rate": 100.0
+  },
+  "per_query": [
+    {
+      "query": "dark sci-fi about time loops",
+      "genre": "Science Fiction",
+      "num_relevant": 650,
+      "matched_tags": [
+        "time loop",
+        "time travel",
+        "sci-fi",
+        "time",
+        "dark fantasy",
+        "twists & turns",
+        "scifi",
+        "twist ending",
+        "dystopic future",
+        "sci fi"
+      ],
+      "semantic": {
+        "recall@5": 0.0062,
+        "hits": 4,
+        "total_ms": 169.17,
+        "embed_ms": 113.35,
+        "search_ms": 55.79,
+        "from_cache": true,
+        "top_results": [
+          "Looper",
+          "Time Lapse",
+          "Timecrimes (Cronocrímenes, Los)",
+          "Time Trap",
+          "Time Machine, The"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0062,
+        "hits": 4,
+        "total_ms": 210.5,
+        "top_results": [
+          "Sticky Fingers of Time, The",
+          "Explorers",
+          "Amazon Women on the Moon",
+          "Blob, The",
+          "I Am Number Four"
+        ]
+      }
+    },
+    {
+      "query": "isolated researcher finds something mysterious in ice",
+      "genre": "Science Fiction",
+      "num_relevant": 507,
+      "matched_tags": [
+        "mystery",
+        "antarctica",
+        "private detective",
+        "investigation",
+        "detective",
+        "global warming",
+        "police investigation",
+        "mad scientist",
+        "enigmatic",
+        "self discovery"
+      ],
+      "semantic": {
+        "recall@5": 0.0059,
+        "hits": 3,
+        "total_ms": 122.49,
+        "embed_ms": 72.41,
+        "search_ms": 50.07,
+        "from_cache": true,
+        "top_results": [
+          "Iceman",
+          "Thaw, The",
+          "Thing, The",
+          "Thing, The",
+          "The Discovery"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0,
+        "hits": 0,
+        "total_ms": 80.72,
+        "top_results": [
+          "Infinity Pool",
+          "Iceman",
+          "Solaris",
+          "Signs",
+          "Ghosts of Mars"
+        ]
+      }
+    },
+    {
+      "query": "retro-futuristic heist movie",
+      "genre": null,
+      "num_relevant": 709,
+      "matched_tags": [
+        "heist",
+        "futuristic",
+        "kubrick",
+        "sci-fi",
+        "dystopic future",
+        "saturn award (best science fiction film)",
+        "sci fi",
+        "road movie",
+        "biopic",
+        "animal movie"
+      ],
+      "semantic": {
+        "recall@5": 0.0056,
+        "hits": 4,
+        "total_ms": 122.06,
+        "embed_ms": 67.57,
+        "search_ms": 54.48,
+        "from_cache": true,
+        "top_results": [
+          "Heist",
+          "Heist",
+          "Program",
+          "Tower Heist",
+          "RoboCop"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0,
+        "hits": 0,
+        "total_ms": 85.42,
+        "top_results": [
+          "Scary Movie 2",
+          "American Movie",
+          "Mystery Science Theater 3000: The Movie",
+          "Silent Movie",
+          "The Adventures of Sherlock Holmes and Dr. Watson: The Hound of the Baskervilles"
+        ]
+      }
+    },
+    {
+      "query": "animated family movie about growing up",
+      "genre": "Animation",
+      "num_relevant": 860,
+      "matched_tags": [
+        "teen movie",
+        "family drama",
+        "oscar (best animated feature)",
+        "cartoon",
+        "disney animated feature",
+        "girlie movie",
+        "childhood",
+        "animal movie",
+        "stand-up comedy",
+        "war movie"
+      ],
+      "semantic": {
+        "recall@5": 0.0035,
+        "hits": 3,
+        "total_ms": 141.0,
+        "embed_ms": 82.4,
+        "search_ms": 58.59,
+        "from_cache": true,
+        "top_results": [
+          "Goofy Movie, A",
+          "Rugrats Movie, The",
+          "When Marnie Was There",
+          "The Croods: A New Age",
+          "The House"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0058,
+        "hits": 5,
+        "total_ms": 103.02,
+        "top_results": [
+          "Santa Claus is Comin' to Town",
+          "Bugs Bunny / Road Runner Movie, The (a.k.a. The Great American Chase)",
+          "Rugrats Movie, The",
+          "Care Bears Movie II: A New Generation",
+          "Ice Age 2: The Meltdown"
+        ]
+      }
+    },
+    {
+      "query": "scary ghost haunted house horror",
+      "genre": "Horror",
+      "num_relevant": 763,
+      "matched_tags": [
+        "haunted house",
+        "ghosts",
+        "ghosts/afterlife",
+        "horror",
+        "halloween",
+        "art house",
+        "supernatural",
+        "frightening",
+        "scary",
+        "zombie"
+      ],
+      "semantic": {
+        "recall@5": 0.0066,
+        "hits": 5,
+        "total_ms": 121.6,
+        "embed_ms": 73.06,
+        "search_ms": 48.53,
+        "from_cache": true,
+        "top_results": [
+          "House on Haunted Hill",
+          "House on Haunted Hill",
+          "Haunt",
+          "Haunting, The",
+          "Haunted House 2, A"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0052,
+        "hits": 4,
+        "total_ms": 225.99,
+        "top_results": [
+          "Uninvited, The",
+          "Innocents, The",
+          "Haunted House, A",
+          "Haunting in Connecticut 2: Ghosts of Georgia, The",
+          "Ghost and Mr. Chicken, The"
+        ]
+      }
+    },
+    {
+      "query": "romantic comedy about mistaken identity",
+      "genre": "Comedy",
+      "num_relevant": 473,
+      "matched_tags": [
+        "romantic comedy",
+        "good romantic comedies",
+        "british comedy",
+        "mistaken identity",
+        "screwball comedy",
+        "black comedy",
+        "stand-up comedy",
+        "off-beat comedy",
+        "dark comedy",
+        "sex comedy"
+      ],
+      "semantic": {
+        "recall@5": 0.0063,
+        "hits": 3,
+        "total_ms": 133.51,
+        "embed_ms": 74.38,
+        "search_ms": 59.13,
+        "from_cache": true,
+        "top_results": [
+          "Man, The",
+          "Accidental Husband, The",
+          "Romantics Anonymous (Les émotifs anonymes)",
+          "Identity Thief",
+          "Mr. Wrong"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0021,
+        "hits": 1,
+        "total_ms": 580.13,
+        "top_results": [
+          "Importance of Being Earnest, The",
+          "The Importance of Being Earnest",
+          "Man, The",
+          "Safe Men",
+          "Say It Isn't So"
+        ]
+      }
+    },
+    {
+      "query": "psychological thriller with mind-bending twists",
+      "genre": "Thriller",
+      "num_relevant": 685,
+      "matched_tags": [
+        "thriller",
+        "twists & turns",
+        "twist ending",
+        "noir thriller",
+        "twist",
+        "plot twist",
+        "supernatural",
+        "dark fantasy",
+        "graphic novel",
+        "murder mystery"
+      ],
+      "semantic": {
+        "recall@5": 0.0029,
+        "hits": 2,
+        "total_ms": 127.43,
+        "embed_ms": 78.73,
+        "search_ms": 48.7,
+        "from_cache": true,
+        "top_results": [
+          "Twisted",
+          "Altered States",
+          "Circle",
+          "Phenomena (a.k.a. Creepers)",
+          "Red Lights"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0058,
+        "hits": 4,
+        "total_ms": 684.1,
+        "top_results": [
+          "Now You See Me 2",
+          "Twisted",
+          "Mr. Brooks",
+          "Abandon",
+          "Hand That Rocks the Cradle, The"
+        ]
+      }
+    },
+    {
+      "query": "space exploration with beautiful visuals",
+      "genre": "Science Fiction",
+      "num_relevant": 441,
+      "matched_tags": [
+        "visuals",
+        "visually appealing",
+        "scenic",
+        "space travel",
+        "space program",
+        "beautiful scenery",
+        "nasa",
+        "visual",
+        "graphic design",
+        "space opera"
+      ],
+      "semantic": {
+        "recall@5": 0.0091,
+        "hits": 4,
+        "total_ms": 124.01,
+        "embed_ms": 72.79,
+        "search_ms": 51.22,
+        "from_cache": true,
+        "top_results": [
+          "Explorers",
+          "Attraction",
+          "Rocketship X-M",
+          "Valerian and the City of a Thousand Planets",
+          "Black Hole, The"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0045,
+        "hits": 2,
+        "total_ms": 43.41,
+        "top_results": [
+          "Creature from the Black Lagoon, The",
+          "Interstellar",
+          "Explorers",
+          "Heavy Metal 2000",
+          "Alien Escape"
+        ]
+      }
+    },
+    {
+      "query": "war movie about soldiers surviving against all odds",
+      "genre": "Action",
+      "num_relevant": 365,
+      "matched_tags": [
+        "war movie",
+        "best war films",
+        "wartime",
+        "vietnam war",
+        "enormously long battle scene",
+        "wwii",
+        "iraq war",
+        "civil war",
+        "american civil war",
+        "war"
+      ],
+      "semantic": {
+        "recall@5": 0.0082,
+        "hits": 3,
+        "total_ms": 120.81,
+        "embed_ms": 73.16,
+        "search_ms": 47.65,
+        "from_cache": true,
+        "top_results": [
+          "Saints and Soldiers",
+          "We Were Soldiers",
+          "Dog Soldiers",
+          "To End All Wars",
+          "War on Everyone"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.011,
+        "hits": 4,
+        "total_ms": 88.33,
+        "top_results": [
+          "The Tomorrow War",
+          "Fury",
+          "Midway",
+          "Hamburger Hill",
+          "1917"
+        ]
+      }
+    },
+    {
+      "query": "coming of age teenage drama",
+      "genre": "Drama",
+      "num_relevant": 795,
+      "matched_tags": [
+        "family drama",
+        "teen movie",
+        "costume drama",
+        "drama",
+        "adolescence",
+        "teens",
+        "coming of age",
+        "teenagers",
+        "teen",
+        "teenager"
+      ],
+      "semantic": {
+        "recall@5": 0.0038,
+        "hits": 3,
+        "total_ms": 117.59,
+        "embed_ms": 70.58,
+        "search_ms": 47.0,
+        "from_cache": true,
+        "top_results": [
+          "Thirteen",
+          "Young People Fucking (a.k.a. YPF)",
+          "Kids",
+          "Storytelling",
+          "Boys"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.005,
+        "hits": 4,
+        "total_ms": 711.95,
+        "top_results": [
+          "Water Lilies (Naissance des pieuvres)",
+          "The Diary of a Teenage Girl",
+          "Lords of Flatbush, The",
+          "Wackness, The",
+          "Lolita"
+        ]
+      }
+    },
+    {
+      "query": "survival in the wilderness",
+      "genre": null,
+      "num_relevant": 359,
+      "matched_tags": [
+        "wilderness",
+        "survival",
+        "stranded",
+        "adventure",
+        "hunting",
+        "nature",
+        "camp",
+        "mountain climbing",
+        "natural disaster",
+        "environment"
+      ],
+      "semantic": {
+        "recall@5": 0.0111,
+        "hits": 4,
+        "total_ms": 130.78,
+        "embed_ms": 75.11,
+        "search_ms": 55.67,
+        "from_cache": true,
+        "top_results": [
+          "The Survivalist",
+          "Surviving the Game",
+          "Alone in the Wilderness",
+          "A Walk in the Woods",
+          "Wild"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0028,
+        "hits": 1,
+        "total_ms": 70.79,
+        "top_results": [
+          "White Water Summer",
+          "The Mountain Between Us",
+          "Shoot to Kill",
+          "Incredible Shrinking Man, The",
+          "Those Who Wish Me Dead"
+        ]
+      }
+    },
+    {
+      "query": "time travel romance",
+      "genre": "Romance",
+      "num_relevant": 617,
+      "matched_tags": [
+        "time travel",
+        "romance",
+        "romantic comedy",
+        "romantic",
+        "good romantic comedies",
+        "interracial romance",
+        "travel",
+        "time",
+        "road trip",
+        "love story"
+      ],
+      "semantic": {
+        "recall@5": 0.0065,
+        "hits": 4,
+        "total_ms": 133.24,
+        "embed_ms": 70.7,
+        "search_ms": 62.54,
+        "from_cache": true,
+        "top_results": [
+          "Time Traveler's Wife, The",
+          "About Time",
+          "Frequently Asked Questions About Time Travel",
+          "Time Machine, The",
+          "Date Movie"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0081,
+        "hits": 5,
+        "total_ms": 422.65,
+        "top_results": [
+          "Frequently Asked Questions About Time Travel",
+          "Happy Accidents",
+          "Kate & Leopold",
+          "Somewhere in Time",
+          "About Time"
+        ]
+      }
+    },
+    {
+      "query": "funny road trip with unlikely friends",
+      "genre": "Comedy",
+      "num_relevant": 1111,
+      "matched_tags": [
+        "road trip",
+        "road movie",
+        "unlikely friendships",
+        "travel",
+        "fun movie",
+        "comedy",
+        "dark comedy",
+        "unintentionally funny",
+        "romantic comedy",
+        "time travel"
+      ],
+      "semantic": {
+        "recall@5": 0.0045,
+        "hits": 5,
+        "total_ms": 122.15,
+        "embed_ms": 72.27,
+        "search_ms": 49.88,
+        "from_cache": true,
+        "top_results": [
+          "Road Trip",
+          "Bad Trip",
+          "College Road Trip",
+          "Road Trip: Beer Pong",
+          "Neighbors"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0027,
+        "hits": 3,
+        "total_ms": 130.25,
+        "top_results": [
+          "What Men Talk About",
+          "Road Trip",
+          "Bad Trip",
+          "Wedding Gift, The",
+          "Dog"
+        ]
+      }
+    },
+    {
+      "query": "emotional drama about family grief and loss",
+      "genre": "Drama",
+      "num_relevant": 599,
+      "matched_tags": [
+        "family drama",
+        "dysfunctional family",
+        "drama",
+        "tragedy",
+        "courtroom drama",
+        "melancholy",
+        "dramatic",
+        "costume drama",
+        "emotional",
+        "family"
+      ],
+      "semantic": {
+        "recall@5": 0.0017,
+        "hits": 1,
+        "total_ms": 123.14,
+        "embed_ms": 75.59,
+        "search_ms": 47.55,
+        "from_cache": true,
+        "top_results": [
+          "Misery",
+          "Death at a Funeral",
+          "Triangle of Sadness",
+          "Eulogy",
+          "Happythankyoumoreplease"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0033,
+        "hits": 2,
+        "total_ms": 814.43,
+        "top_results": [
+          "Moonstruck",
+          "Lovely Bones, The",
+          "Marty",
+          "Pieces of April",
+          "Bicentennial Man"
+        ]
+      }
+    },
+    {
+      "query": "cyberpunk dystopian future city",
+      "genre": "Science Fiction",
+      "num_relevant": 371,
+      "matched_tags": [
+        "dystopic future",
+        "cyberpunk",
+        "dystopia",
+        "suburbia",
+        "utopia",
+        "futuristic",
+        "new york city",
+        "post-apocalyptic",
+        "post apocalyptic",
+        "tokyo"
+      ],
+      "semantic": {
+        "recall@5": 0.0135,
+        "hits": 5,
+        "total_ms": 123.53,
+        "embed_ms": 72.24,
+        "search_ms": 51.29,
+        "from_cache": true,
+        "top_results": [
+          "RoboCop",
+          "Metropolis",
+          "Metropolis",
+          "RoboCop 3",
+          "RoboCop"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0108,
+        "hits": 4,
+        "total_ms": 53.71,
+        "top_results": [
+          "Dredd",
+          "Blame!",
+          "Mortal Engines",
+          "Valerian and the City of a Thousand Planets",
+          "Advantageous"
+        ]
+      }
+    },
+    {
+      "query": "zombie apocalypse survival horror",
+      "genre": "Horror",
+      "num_relevant": 848,
+      "matched_tags": [
+        "zombie",
+        "zombies",
+        "apocalypse",
+        "post apocalyptic",
+        "post-apocalyptic",
+        "survival",
+        "horror",
+        "thriller",
+        "ghosts/afterlife",
+        "halloween"
+      ],
+      "semantic": {
+        "recall@5": 0.0059,
+        "hits": 5,
+        "total_ms": 126.66,
+        "embed_ms": 73.33,
+        "search_ms": 53.33,
+        "from_cache": true,
+        "top_results": [
+          "Survival of the Dead",
+          "Scouts Guide to the Zombie Apocalypse",
+          "Undead",
+          "Zombie (a.k.a. Zombie 2: The Dead Are Among Us) (Zombi 2)",
+          "White Zombie"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0047,
+        "hits": 4,
+        "total_ms": 179.27,
+        "top_results": [
+          "Anna and the Apocalypse",
+          "Resident Evil: Apocalypse",
+          "Cockneys vs Zombies",
+          "Scouts Guide to the Zombie Apocalypse",
+          "Freaks of Nature"
+        ]
+      }
+    },
+    {
+      "query": "underdog sports team wins championship",
+      "genre": null,
+      "num_relevant": 459,
+      "matched_tags": [
+        "underdog",
+        "sports",
+        "baseball",
+        "basketball",
+        "understated",
+        "competition",
+        "franchise",
+        "soccer",
+        "football",
+        "olympics"
+      ],
+      "semantic": {
+        "recall@5": 0.0065,
+        "hits": 3,
+        "total_ms": 117.13,
+        "embed_ms": 70.25,
+        "search_ms": 46.88,
+        "from_cache": true,
+        "top_results": [
+          "Underdog",
+          "Undefeated",
+          "Dodgeball: A True Underdog Story",
+          "Win Win",
+          "Semi-Pro"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0109,
+        "hits": 5,
+        "total_ms": 116.26,
+        "top_results": [
+          "Rookie, The",
+          "Eight Men Out",
+          "Invictus",
+          "Dogtown and Z-Boyz",
+          "Semi-Pro"
+        ]
+      }
+    },
+    {
+      "query": "true crime detective murder mystery",
+      "genre": "Thriller",
+      "num_relevant": 729,
+      "matched_tags": [
+        "murder mystery",
+        "detective",
+        "private detective",
+        "serial killer",
+        "murder",
+        "police investigation",
+        "mystery",
+        "undercover cop",
+        "crime gone awry",
+        "crime"
+      ],
+      "semantic": {
+        "recall@5": 0.0069,
+        "hits": 5,
+        "total_ms": 117.62,
+        "embed_ms": 71.39,
+        "search_ms": 46.23,
+        "from_cache": true,
+        "top_results": [
+          "True Crime",
+          "True Crime",
+          "Murder!",
+          "Murder by Death",
+          "Homicide"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0069,
+        "hits": 5,
+        "total_ms": 308.26,
+        "top_results": [
+          "True Crime",
+          "Murder at 1600",
+          "Bone Collector, The",
+          "Murder by Death",
+          "Edge of Darkness"
+        ]
+      }
+    },
+    {
+      "query": "anime fantasy adventure with magic and friendship",
+      "genre": "Animation",
+      "num_relevant": 458,
+      "matched_tags": [
+        "anime",
+        "fantasy world",
+        "dark fantasy",
+        "modern fantasy",
+        "adventure",
+        "magic",
+        "fantasy",
+        "high fantasy",
+        "magic realism",
+        "stage magic"
+      ],
+      "semantic": {
+        "recall@5": 0.0087,
+        "hits": 4,
+        "total_ms": 121.34,
+        "embed_ms": 74.68,
+        "search_ms": 46.65,
+        "from_cache": true,
+        "top_results": [
+          "Puella Magi Madoka Magica the Movie Part II: Eternal",
+          "Puella Magi Madoka Magica the Movie Part I: Beginnings",
+          "Puella Magi Madoka Magica the Movie Part III: Rebellion",
+          "Flight of Dragons, The",
+          "Wicked City (Yôjû toshi)"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.0,
+        "hits": 0,
+        "total_ms": 100.47,
+        "top_results": [
+          "Wolfwalkers",
+          "Snowman, The",
+          "Frozen",
+          "Phantom Tollbooth, The",
+          "DuckTales: The Movie - Treasure of the Lost Lamp"
+        ]
+      }
+    },
+    {
+      "query": "superhero learning to use powers for first time",
+      "genre": "Action",
+      "num_relevant": 143,
+      "matched_tags": [
+        "superhero",
+        "superheroes",
+        "batman",
+        "marvel",
+        "comics",
+        "super hero",
+        "super-hero",
+        "comic book",
+        "comic book adaption",
+        "dc comics"
+      ],
+      "semantic": {
+        "recall@5": 0.014,
+        "hits": 2,
+        "total_ms": 117.57,
+        "embed_ms": 71.24,
+        "search_ms": 46.32,
+        "from_cache": true,
+        "top_results": [
+          "Shazam!",
+          "Project Power",
+          "Absolute Power",
+          "Super",
+          "Guardians"
+        ]
+      },
+      "tfidf": {
+        "recall@5": 0.014,
+        "hits": 2,
+        "total_ms": 101.61,
+        "top_results": [
+          "Lara Croft: Tomb Raider",
+          "X-Men: First Class",
+          "Kim Possible: A Sitch in Time",
+          "3 Ninjas",
+          "Captain America: The First Avenger"
+        ]
+      }
+    }
+  ]
+}
