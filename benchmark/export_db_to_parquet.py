@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
 VibeLens — Step 1: Export DB → Local Parquet
-只读操作，完全不修改云上数据。
-运行完后再跑 benchmark_pipeline.py 即可。
 """
 
 import os
@@ -34,10 +32,10 @@ print(f"  DB   : {DB_CONFIG['database']}\n")
 conn = psycopg2.connect(**DB_CONFIG)
 cur  = conn.cursor()
 
-# 查总行数
+# total rows
 cur.execute('SELECT COUNT(*) FROM movies')
 total = cur.fetchone()[0]
-print(f"  共 {total:,} 部电影，开始导出...\n")
+print(f"  Find {total:,} movies, starting export...\n")
 
 start = time.time()
 
@@ -51,14 +49,14 @@ cur.close()
 conn.close()
 
 fetch_time = time.time() - start
-print(f"  ✓ 读取完成  ({fetch_time:.1f}s)")
+print(f"  ✓ Fetch completed  ({fetch_time:.1f}s)")
 
-# 转 DataFrame
+# transform DataFrame
 cols = ['movieId','title','year','genres','tmdb_genres',
         'num_ratings','avg_rating','tmdb_rating','soup','embedding']
 df = pd.DataFrame(rows, columns=cols)
 
-# embedding: list[float] → list (保持原格式，与 generate_embeddings.py 一致)
+# embedding: list[float] → list (keep format, consistent with generate_embeddings.py)
 df['embedding'] = df['embedding'].apply(lambda x: list(x) if x is not None else None)
 
 save_start = time.time()
@@ -68,8 +66,8 @@ save_time = time.time() - save_start
 size_mb = os.path.getsize(OUTPUT_PATH) / (1024 ** 2)
 total_time = time.time() - start
 
-print(f"  ✓ 保存完成  ({save_time:.1f}s)")
-print(f"\n  输出文件 : {OUTPUT_PATH}")
-print(f"  文件大小 : {size_mb:.1f} MB")
-print(f"  总耗时   : {total_time:.1f}s")
-print(f"\n  ✅ 完成！现在可以运行 benchmark_pipeline.py 了")
+print(f"  ✓ Save completed  ({save_time:.1f}s)")
+print(f"\n  Output file : {OUTPUT_PATH}")
+print(f"  File size : {size_mb:.1f} MB")
+print(f"  Total time : {total_time:.1f}s")
+print(f"\n  ✅ Completed! Now you can run benchmark_pipeline.py")
