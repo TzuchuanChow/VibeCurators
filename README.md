@@ -59,23 +59,33 @@ cd VibeCurators
 
 # 2. Install dependencies
 conda create -n VibeLens python=3.11
+
 conda activate VibeLens
+
 pip install -r requirements.txt
 
 # 3. Configure database credentials(using  information in the section below)
 **For .env file:**
 PG_HOST=your-database-host.example.com
+
 PG_PORT=5432
+
 PG_DATABASE=vibelens
+
 PG_USER=postgres
+
 PG_PASSWORD=your-database-password
 
 cp .env.example .env
+
 vim .env
+
 Remove everything already exists in the “.env” file and copy text in the section above into it
 
 *Make sure Transformers (NOT Sentence Transformer) is on version 4.57.6
+
 Use “conda list” to check your current version 
+
 Pip install transformers=4.57.6
 
 # 4. Run search
@@ -111,8 +121,10 @@ npm run dev
 ### Running The backend API
 Follow the guide get the envrioment running provided above .
 
-- Once you got it running and still inside the enviroment run "python -m pip install fastapi uvicorn" 
+- Once you got it running and still inside the enviroment run "python -m pip install fastapi uvicorn"
+  
 - Then start the backend server run:  "python api.py."
+  
 You are successful when you see: Uvicorn running on http://127.0.0.1:8000 (leave it as it dont click) and go back to the web and TEST!
 
 
