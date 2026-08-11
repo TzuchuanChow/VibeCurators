@@ -1,11 +1,6 @@
 # VibeLens: Semantic Movie Recommender
 
-Group 08 Vibe Curators:  
-ZICHUAN ZHOU  
-KEVIN BACH  
-KELSEY MUSOLF  
-XIAO GAO  
-ANIKA SOOD
+Group 08 Vibe Curators
 
 A vector embedding-based movie recommendation system using RAG and PostgreSQL+pgvector for UC Riverside's Big Data Management course.
 
